@@ -54,7 +54,7 @@ class FindClassesUsingTrait
     private function getNamespaceFromFile(string $filePath): ?string
     {
         if (preg_match('/namespace\s+([^;]+);/', (string) file_get_contents($filePath), $matches)) {
-            return trim($matches[1]);
+            return mb_trim($matches[1]);
         }
 
         return null;

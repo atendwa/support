@@ -33,6 +33,6 @@ class Utilities
      */
     public function ipLookup(string $ip): Collection
     {
-        return Http::asForm()->post('https://iplocation.com/', ['ip' => trim($ip)])->collect();
+        return Http::asForm()->post('https://iplocation.com/', ['ip' => mb_trim($ip)])->collect();
     }
 }
