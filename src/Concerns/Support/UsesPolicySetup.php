@@ -164,7 +164,7 @@ trait UsesPolicySetup
      */
     private function getResource(): string
     {
-        if ( property_exists($this, 'resource') && filled($this->resource)) {
+        if (property_exists($this, 'resource') && filled($this->resource)) {
             return $this->resource;
         }
 
