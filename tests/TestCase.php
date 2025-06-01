@@ -2,7 +2,7 @@
 
 namespace Atendwa\Support\Tests;
 
-use Atendwa\Support\SupportServiceProvider;
+use Atendwa\Support\Providers\SupportServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -28,7 +28,11 @@ class TestCase extends Orchestra
          */
     }
 
-    protected function getPackageProviders($app)
+    /**
+     * @param $app
+     * @return class-string[]
+     */
+    protected function getPackageProviders($app): array
     {
         return [
             SupportServiceProvider::class,
