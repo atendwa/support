@@ -53,11 +53,11 @@ trait HasMetaAttribute
         $meta = $this->getAttribute($key);
 
         $meta = match ($meta instanceof Collection) {
-            false => json_decode(json_encode($meta), true),
-            true => collect($meta),
+            false => collect(json_decode(json_encode($meta), true)),
+            true => $meta,
         };
 
-        throw_if(! $meta instanceof Collection, 'Attribute: ' . $key . ' must be an array');
+        throw_if(! $meta instanceof Collection, 'Attribute: ' . $key . ' must be a collection');
 
         return $meta->merge($this->mergeMeta());
     }
@@ -197,7 +197,7 @@ trait HasMetaAttribute
     {
         $hasMeta = asInstanceOf($model, HasMeta::class);
 
-        $data = $hasMeta->validateMeta(self::prepareMeta($model, $hasMeta), $model->exists);
+        $data = $hasMeta->validateMeta(self::prepareMeta($model, $hasMeta));
 
         collect(collect($hasMeta->metaAttributes())->keys()->all())->each(function ($attribute) use ($model): void {
             unset($model->$attribute);
@@ -211,12 +211,13 @@ trait HasMetaAttribute
      */
     private static function prepareMeta(Model $model, HasMeta $hasMeta): array
     {
-        $attributes = collect($hasMeta->metaAttributes())->keys()->all();
+        $attributes = collect($hasMeta->metaAttributes())->keys();
 
-        $meta = collect($model->toArray())->only($attributes);
+        $newMeta = collect($model->toArray())->only($attributes->all());
+        $currentMeta = $hasMeta->meta();
 
-        return $hasMeta->meta()
-            ->mapWithKeys(fn ($value, $key) => [$key => $meta->get($key, $value)])
-            ->only($attributes)->all();
+        return $attributes
+            ->map(fn ($attribute) => [$attribute => $newMeta->get($attribute) ?? $currentMeta->get($attribute)])
+            ->collapse()->all();
     }
 }
