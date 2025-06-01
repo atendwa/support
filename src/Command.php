@@ -25,13 +25,7 @@ class Command extends \Illuminate\Console\Command
             $this->call('vendor:publish', ['--provider' => $this->provider, '--tag' => 'migrations', '--force' => true]);
         }
 
-        if ($this->confirm('Run migrations?')) {
-            $migrations = str(static::class)->before('Console')->append('database/migration')->lower();
-
-            $this->call('migrate', [
-                '--path' => base_path($migrations->replace('\\', '/')->prepend('vendor/')->toString()),
-            ]);
-        }
+        when($this->confirm('Run migrations?'), fn () => $this->call('migrate'));
 
         $this->info($name . ' installed successfully!');
     }
