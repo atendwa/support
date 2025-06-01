@@ -12,8 +12,6 @@ trait UsesPolicySetup
 {
     use HandlesAuthorization;
 
-    protected ?string $resource = null;
-
     /**
      * @throws Throwable
      */
@@ -166,7 +164,7 @@ trait UsesPolicySetup
      */
     private function getResource(): string
     {
-        if (filled($this->resource)) {
+        if ( property_exists($this, 'resource') && filled($this->resource)) {
             return $this->resource;
         }
 
