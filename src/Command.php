@@ -17,16 +17,25 @@ class Command extends \Illuminate\Console\Command
 
         $this->info('Installing ' . $name . '...');
 
-        $this->call('vendor:publish', ['--provider' => $this->provider, '--tag' => 'config', '--force' => true]);
+        $arguments = ['--provider' => $this->provider, '--force' => true];
+
+        $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'config']));
 
         $this->call('shield:generate', ['--resource' => collect($this->resources)->implode(', ')]);
 
         if ($this->confirm('Should publish migrations?')) {
-            $this->call('vendor:publish', ['--provider' => $this->provider, '--tag' => 'migrations', '--force' => true]);
+            $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'migrations']));
         }
 
         when($this->confirm('Run migrations?'), fn () => $this->call('migrate'));
 
+        $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'assets']));
+        $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'views']));
+
+        $this->installHook();
+
         $this->info($name . ' installed successfully!');
     }
+
+    protected function installHook(): void {}
 }
