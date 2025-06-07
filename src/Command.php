@@ -11,12 +11,36 @@ class Command extends \Illuminate\Console\Command
      */
     protected array $resources = [];
 
+    private string $packageName;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->packageName = str(class_basename($this->provider))->before('ServiceProvider')->toString();
+    }
+
     public function handle(): void
     {
-        $name = str(class_basename($this->provider))->before('ServiceProvider')->toString();
+        $this->preInstall();
 
-        $this->info('Installing ' . $name . '...');
+        $this->publishAssets();
 
+        $this->finish();
+    }
+
+    protected function preInstall(): void
+    {
+        $this->info('Installing ' . $this->packageName . '...');
+    }
+
+    protected function finish(): void
+    {
+        $this->info($this->packageName . ' installed successfully!');
+    }
+
+    protected function publishAssets(): void
+    {
         $arguments = ['--provider' => $this->provider, '--force' => true];
 
         $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'config']));
@@ -31,11 +55,5 @@ class Command extends \Illuminate\Console\Command
 
         $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'assets']));
         $this->call('vendor:publish', array_merge($arguments, ['--tag' => 'views']));
-
-        $this->installHook();
-
-        $this->info($name . ' installed successfully!');
     }
-
-    protected function installHook(): void {}
 }
