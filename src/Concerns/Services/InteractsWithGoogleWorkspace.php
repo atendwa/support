@@ -93,7 +93,10 @@ trait InteractsWithGoogleWorkspace
         $this->generateFile(json_encode($credentials, JSON_PRETTY_PRINT));
 
         $googleClient = new Google_Client();
-        $googleClient->setScopes(['https://www.googleapis.com/auth/admin.directory.user.readonly']);
+        $googleClient->setScopes([
+            'https://www.googleapis.com/auth/admin.directory.user.readonly',
+            'https://www.googleapis.com/auth/admin.directory.user',
+        ]);
         $googleClient->setApplicationName($this->getAppName());
         $googleClient->setSubject($this->getAdminEmail());
         $googleClient->setAuthConfig($this->filePath);
