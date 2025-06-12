@@ -91,10 +91,6 @@ trait HasStateTransitions
     {
         $state = $this->state();
 
-        if (any([str($state)->contains('pending'), in_array($state, $this->warningStates())])) {
-            return 'warning';
-        }
-
         if (in_array($state, $this->dangerStates())) {
             return 'danger';
         }
@@ -105,6 +101,10 @@ trait HasStateTransitions
 
         if ($state === $this->finalSuccessState()) {
             return 'success';
+        }
+
+        if (any([str($state)->contains('pending'), in_array($state, $this->warningStates())])) {
+            return 'warning';
         }
 
         return 'gray';
