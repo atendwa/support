@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Atendwa\Support\Concerns\Services;
 
 use Atendwa\Support\Concerns\Support\CanGenerateTempFiles;
+use Google\Service\Directory;
 use Google\Service\Directory\Resource\Users;
 use Google\Service\Directory\User;
 use Google_Client;
@@ -96,6 +97,8 @@ trait InteractsWithGoogleWorkspace
         $googleClient->setScopes([
             'https://www.googleapis.com/auth/admin.directory.user.readonly',
             'https://www.googleapis.com/auth/admin.directory.user',
+            Directory::ADMIN_DIRECTORY_GROUP_READONLY,
+            Directory::ADMIN_DIRECTORY_GROUP_MEMBER,
         ]);
         $googleClient->setApplicationName($this->getAppName());
         $googleClient->setSubject($this->getAdminEmail());
