@@ -24,11 +24,6 @@ trait HasModelUtilities
         return asFloat($this->getAttribute($key));
     }
 
-    public function id(): int
-    {
-        return (int) $this->string('id');
-    }
-
     public function isInactive(): bool
     {
         return ! $this->isActive();
