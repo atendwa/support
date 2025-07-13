@@ -99,7 +99,7 @@ trait HasStateTransitions
             return 'info';
         }
 
-        if ($state === $this->finalSuccessState()) {
+        if (collect($this->finalSuccessStates())->contains($state)) {
             return 'success';
         }
 
@@ -136,16 +136,19 @@ trait HasStateTransitions
 
     public function isCompleted(): bool
     {
-        return $this->stateIs($this->finalSuccessState());
+        return $this->stateIs($this->finalSuccessStates());
     }
 
-    public function finalSuccessState(): string
+    /**
+     * @return string[]|string
+     */
+    public function finalSuccessStates(): array|string
     {
         return 'completed';
     }
 
     public function markAsCompleted(): void
     {
-        $this->update(['status' => $this->finalSuccessState()]);
+        $this->update(['status' => collect($this->finalSuccessStates())->first()]);
     }
 }
