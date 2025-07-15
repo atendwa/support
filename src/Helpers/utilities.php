@@ -22,3 +22,13 @@ if (! function_exists('inferFileClass')) {
         return Utilities::inferFileClass($filePath);
     }
 }
+
+
+if (! function_exists('purgeHorizon')) {
+    function purgeHorizon(bool $clearQueues = false): void
+    {
+        when($clearQueues, fn () => Artisan::call('queue:clear'));
+
+        Illuminate\Support\Facades\Redis::connection('horizon')->flushdb();
+    }
+}

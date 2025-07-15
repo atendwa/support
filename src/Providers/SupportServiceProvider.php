@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atendwa\Support\Providers;
 
+use Atendwa\Support\Console\Commands\ClearHorizon;
 use Atendwa\Support\Console\Commands\PruneModels;
 use Atendwa\Support\Services\Iterables;
 use Atendwa\Support\Services\TypeSafety;
@@ -22,7 +23,7 @@ class SupportServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->commands([PruneModels::class]);
+            $this->commands([PruneModels::class, ClearHorizon::class]);
         }
     }
 }
