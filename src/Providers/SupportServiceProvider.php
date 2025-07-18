@@ -18,6 +18,8 @@ class SupportServiceProvider extends ServiceProvider
         $this->app->singleton('atendwa-type-safety', fn (): TypeSafety => new TypeSafety());
         $this->app->singleton('atendwa-iterables', fn (): Iterables => new Iterables());
         $this->app->singleton('atendwa-utilities', fn (): Utilities => new Utilities());
+
+        $this->app->register(MacroServiceProvider::class);
     }
 
     public function boot(): void

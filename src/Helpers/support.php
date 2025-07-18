@@ -51,3 +51,16 @@ if (! function_exists('validatorErrorString')) {
         return str($errors)->replace('.,', ', ')->lower()->toString();
     }
 }
+
+if (! function_exists('defaultAuditColumns')) {
+    /**
+     * @return string[]
+     */
+    function defaultAuditColumns(): array
+    {
+        return [
+            'restored_at', 'archived_at', 'created_by', 'updated_by', 'deleted_by', 'restored_by', 'archived_by',
+            'is_active', 'location', 'user_agent', 'ip_address', 'created_at', 'updated_at', 'deleted_at',
+        ];
+    }
+}
