@@ -23,7 +23,6 @@ if (! function_exists('inferFileClass')) {
     }
 }
 
-
 if (! function_exists('purgeHorizon')) {
     function purgeHorizon(bool $clearQueues = false): void
     {
