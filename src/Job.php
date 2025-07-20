@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atendwa\Support;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,4 +18,5 @@ class Job implements ShouldBeEncrypted, ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+    use Batchable;
 }
