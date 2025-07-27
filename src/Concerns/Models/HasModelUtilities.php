@@ -79,8 +79,8 @@ trait HasModelUtilities
      */
     public static function toSelectOption(string $label, string $key = 'id'): array
     {
-        return self::query()->select([$key, $label])->pluck($label, $key)
+        return self::query()->select([$key, $label])->pluck($label, $key)->sort()
             ->mapWithKeys(fn ($value, $key) => [(int) $key => asString($value)])
-            ->all();
+            ->values()->all();
     }
 }
