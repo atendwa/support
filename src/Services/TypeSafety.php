@@ -20,8 +20,9 @@ class TypeSafety
 
     public function asFloat(mixed $value, float $default = 0): float
     {
-        return match (is_float($value)) {
-            true => $value,  false => $default
+        return match (is_numeric($value)) {
+            true => (float) $value,
+            false => $default
         };
     }
 
