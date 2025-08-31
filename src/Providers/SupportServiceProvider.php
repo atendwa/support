@@ -14,7 +14,7 @@ use Illuminate\Support\ServiceProvider;
 class SupportServiceProvider extends ServiceProvider
 {
     // todo: make custom exception class for my know exceptions witha unique code that way i can ignore dumping them
-    
+
     public function register(): void
     {
         $this->app->singleton('atendwa-type-safety', fn (): TypeSafety => new TypeSafety());
