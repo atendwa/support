@@ -51,9 +51,6 @@ trait HasDisposableColumns
      */
     private function disposableColumns(): array
     {
-        return [
-            'archived_by', 'archived_at', 'location', 'user_agent', 'ip_address',
-            'deleted_by', 'deleted_at', 'restored_by', 'restored_at',
-        ];
+        return [];
     }
 }
