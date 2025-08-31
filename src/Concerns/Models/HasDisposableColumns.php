@@ -26,7 +26,7 @@ trait HasDisposableColumns
      *
      * @return string[]
      */
-    private function fetchSelectableColumns(array $except = []): array
+    protected function fetchSelectableColumns(array $except = []): array
     {
         return cache()->rememberForever($this->selectableColumnsCacheKey(), fn () => $this->SelectableColumns($except));
     }
@@ -34,14 +34,14 @@ trait HasDisposableColumns
     /**
      * @return string[]
      */
-    private function SelectableColumns(array $except = []): array
+    protected function SelectableColumns(array $except = []): array
     {
         $exclude = array_unique(array_merge($this->disposableColumns(), $except));
 
         return array_values(array_diff(Schema::getColumnListing($this->getTable()), $exclude));
     }
 
-    private function selectableColumnsCacheKey(): string
+    protected function selectableColumnsCacheKey(): string
     {
         return str(class_basename($this::class) . ':selectable_columns')->snake()->toString();
     }
@@ -49,7 +49,7 @@ trait HasDisposableColumns
     /**
      * @return string[]
      */
-    private function disposableColumns(): array
+    protected function disposableColumns(): array
     {
         return [];
     }
