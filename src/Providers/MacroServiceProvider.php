@@ -10,10 +10,11 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Collection;
+
 class MacroServiceProvider extends ServiceProvider
 {
     public function register(): void {}
