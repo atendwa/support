@@ -13,7 +13,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Collection;
 class MacroServiceProvider extends ServiceProvider
 {
     public function register(): void {}
