@@ -70,6 +70,14 @@ class MacroServiceProvider extends ServiceProvider
             }
         );
 
+        Builder::macro(
+            'collect',
+            /**
+             * @return Collection<int, Model>
+             */
+            fn (): Collection => collect($this->get())
+        );
+
         Blueprint::macro('status', fn (string $default = 'draft') => $this->string('status')->default($default));
         Blueprint::macro('slug', fn () => $this->string('slug')->index()->nullable());
 
