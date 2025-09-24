@@ -81,6 +81,6 @@ trait HasModelUtilities
     {
         return self::query()->select([$key, $label])->pluck($label, $key)->sort()
             ->mapWithKeys(fn ($value, $key) => [(int) $key => asString($value)])
-            ->values()->all();
+            ->all();
     }
 }
