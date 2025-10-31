@@ -55,19 +55,19 @@ trait UsesPolicySetup
     /**
      * @throws Throwable
      */
-    public function update(Model $user, Model $model, bool $bypass = false): bool
+    public function update(Model $user, Model $model, bool $useStatus = false): bool
     {
-        return $this->baseUpdate($user, $model, $bypass);
+        return $this->baseUpdate($user, $model, $useStatus);
     }
 
     /**
      * @throws Throwable
      */
-    public function baseUpdate(Model $user, Model $model, bool $bypass = false): bool
+    public function baseUpdate(Model $user, Model $model, bool $useStatus = false): bool
     {
         $value = $user->can($this->permission('update'));
 
-        return match ($model instanceof Transitionable && ! $bypass) {
+        return match ($model instanceof Transitionable && $useStatus) {
             true => every([$value, $model->editable()]),
             false => $value,
         };
