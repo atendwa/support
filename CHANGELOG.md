@@ -2,6 +2,10 @@
 
 All notable changes to `support` will be documented in this file.
 
+## 1.0.16 - 2025-10-31
+
+**Full Changelog**: https://github.com/atendwa/support/compare/1.0.15...1.0.16
+
 ## 1.0.15 - 2025-09-24
 
 **Full Changelog**: https://github.com/atendwa/support/compare/1.0.14...1.0.15
