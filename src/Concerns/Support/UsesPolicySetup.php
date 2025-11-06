@@ -154,7 +154,7 @@ trait UsesPolicySetup
     /**
      * @throws Throwable
      */
-    private function permission(string $prefix): string
+    protected function permission(string $prefix): string
     {
         return $prefix . '_' . FilamentShield::getPermissionIdentifier($this->getResource());
     }
@@ -162,7 +162,7 @@ trait UsesPolicySetup
     /**
      * @throws Throwable
      */
-    private function getResource(): string
+    protected function getResource(): string
     {
         if (property_exists($this, 'resource') && filled($this->resource)) {
             return $this->resource;
