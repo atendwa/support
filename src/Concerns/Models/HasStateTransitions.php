@@ -91,6 +91,10 @@ trait HasStateTransitions
     {
         $state = $this->state();
 
+        if (in_array($state, $this->grayStates())) {
+            return 'gray';
+        }
+
         if (in_array($state, $this->dangerStates())) {
             return 'danger';
         }
@@ -132,6 +136,14 @@ trait HasStateTransitions
     public function dangerStates(): array
     {
         return ['rejected', 'flagged'];
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function grayStates(): array
+    {
+        return [];
     }
 
     public function isCompleted(): bool
